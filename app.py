@@ -1,8 +1,10 @@
 from flask import Flask, Response, make_response, request
+from flask_cors import CORS
 import pandas as pd
 import requests 
 import json
 app = Flask(__name__)
+cors = CORS(app)
 
 @app.route("/getState", methods=['GET'])
 def getPlotCSV():
@@ -47,5 +49,6 @@ def get_information_about_state(dataframe, state_code='NY', death_lag=3):
     state_df = state_df.fillna(0)
     state_df = state_df[:-9]
     return state_df
-
-app.run(debug=True)
+ 
+if __name__ == "__main__":
+     app.run(host='0.0.0.0')
